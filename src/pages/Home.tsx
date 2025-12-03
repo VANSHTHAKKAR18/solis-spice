@@ -3,13 +3,39 @@ import { Button } from "@/components/ui/button";
 import { Award, Globe, Leaf, TrendingUp } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
 import { products } from "@/data/products";
-
+import heroImage from "@/assets/hero-poster.jpg";
 const Home = () => {
   const featuredProducts = products.slice(0, 6);
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
+            <section className="relative h-[500px] md:h-[600px] flex items-center justify-center overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-contain bg-center bg-no-repeat md:bg-cover"
+          style={{ backgroundImage: `url(${heroImage})`, backgroundColor: 'hsl(var(--muted))' }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-background/85 via-background/60 to-transparent" />
+        </div>
+        
+        <div className="container relative z-10 px-4">
+          <div className="max-w-2xl">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground">
+              Premium Spices from <span className="text-primary">India</span> to the <span className="text-secondary">World</span>
+            </h1>
+            <p className="text-xl mb-8 text-muted-foreground">
+              Manufacturer, Exporter & Supplier of Spices and Oil Seeds
+            </p>
+            <p className="text-2xl font-semibold mb-8 text-accent">
+              Pure Taste. Global Reach.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
+                <Link to="/products">Explore Products</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
+                <Link to="/contact">Send Enquiry</Link>
+              </Button>
       <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
        
         
