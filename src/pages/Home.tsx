@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Award, Globe, Leaf, TrendingUp } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
 import { products } from "@/data/products";
-import heroImage from "@/assets/hero-poster.jpg";
 
 const Home = () => {
   const featuredProducts = products.slice(0, 6);
@@ -12,12 +11,7 @@ const Home = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${heroImage})` }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/70 to-background/50" />
-        </div>
+       
         
         <div className="container relative z-10 px-4">
           <div className="max-w-2xl">
