@@ -5,28 +5,35 @@
     <img
       src={heroImage}
       alt="Solis International - Premium Spices"
-      className="absolute inset-0 w-full h-full object-cover md:object-contain object-center"
+      className="
+        absolute inset-0 w-full h-full 
+        object-cover object-top     /* show top area on mobile */
+        md:object-contain md:object-center /* full image on desktop */
+      "
     />
 
-    {/* Dark overlay */}
-    <div className="absolute inset-0 bg-black/45 md:bg-black/25"></div>
+    {/* Strong overlay on mobile, lighter overlay on desktop */}
+    <div className="absolute inset-0 bg-black/55 md:bg-black/25"></div>
   </div>
 
   {/* Text Content */}
-  <div className="absolute inset-0 flex items-start md:items-center pt-8 md:pt-0">
+  <div className="absolute inset-0 flex items-start md:items-center pt-3 sm:pt-6 md:pt-0">
     <div className="container px-4">
       <div className="max-w-xl">
+        
+        {/* TITLE */}
         <h1
           className="
-            text-2xl sm:text-3xl md:text-4xl lg:text-5xl 
+            text-2xl sm:text-3xl md:text-4xl lg:text-5xl
             font-extrabold mb-3 md:mb-4 
-            text-white drop-shadow-lg leading-snug
+            text-white drop-shadow-xl leading-tight
           "
         >
           Premium Spices from <span className="text-orange-400">India</span> to the{" "}
           <span className="text-green-400">World</span>
         </h1>
 
+        {/* SUBTEXT */}
         <p className="text-sm sm:text-base md:text-lg mb-3 text-white drop-shadow-md">
           Manufacturer, Exporter & Supplier of Spices and Oil Seeds
         </p>
@@ -35,11 +42,11 @@
           Pure Taste. Global Reach.
         </p>
 
+        {/* BUTTONS */}
         <div className="flex flex-wrap gap-3">
           <Button asChild size="default" className="bg-primary hover:bg-primary/90">
             <Link to="/products">Explore Products</Link>
           </Button>
-
           <Button
             asChild
             size="default"
