@@ -1,4 +1,4 @@
-]import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Award, Globe, Leaf, TrendingUp } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
@@ -154,7 +154,9 @@ const Home = () => {
         <div className="container px-4">
           <div className="max-w-2xl mx-auto bg-background rounded-lg shadow-lg border border-border p-10 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">Ready to Partner With Us?</h2>
-            <p className="text-xl mb-8 text-muted-foreground">Send your requirements — we deliver the finest spices.</p>
+            <p className="text-xl mb-8 text-muted-foreground">
+              Send your requirements — we deliver the finest spices.
+            </p>
 
             <Button asChild size="lg" className="bg-primary text-white hover:bg-primary/90">
               <Link to="/contact">Send Enquiry Now</Link>
@@ -167,3 +169,4 @@ const Home = () => {
 };
 
 export default Home;
+
