@@ -10,42 +10,58 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
-
+      
       {/* HERO SECTION */}
-      <section className="relative h-auto overflow-hidden">
-        <img 
-          src={heroImage} 
-          alt="Solis International - Premium Spices"
-          className="w-full h-auto object-contain"
-        />
+      <section className="relative w-full overflow-hidden">
+        
+        {/* Background Image */}
+        <div className="w-full h-[260px] sm:h-[350px] md:h-[500px] lg:h-[650px] relative">
+          <img
+            src={heroImage}
+            alt="Solis International - Premium Spices"
+            className="
+              absolute inset-0 w-full h-full 
+              object-cover object-top     /* focus top on mobile */
+              md:object-contain md:object-center /* full image on desktop */
+            "
+          />
 
-        {/* Overlay to improve text visibility */}
-        <div className="absolute inset-0 bg-black/30 md:bg-black/20"></div>
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-black/50 md:bg-black/25" />
+        </div>
 
-        {/* TEXT CONTENT */}
-        <div className="absolute inset-0 flex items-center">
+        {/* Hero Text */}
+        <div className="absolute inset-0 flex items-start md:items-center pt-4 md:pt-0">
           <div className="container px-4">
-            <div className="max-w-lg ml-3 sm:ml-5 md:ml-10 lg:ml-16">
-              
-              <h1
-                className="
-                  text-xl sm:text-2xl md:text-3xl lg:text-4xl
-                  font-bold mb-3 text-white drop-shadow-lg
-                "
-              >
-                Premium Spices from <span className="text-primary">India</span> to the{" "}
-                <span className="text-secondary">World</span>
-              </h1>
+            <div className="max-w-xl">
 
-              <p className="text-sm sm:text-base md:text-lg mb-3 text-white drop-shadow-md">
-                Manufacturer, Exporter & Supplier of Spices and Oil Seeds
-              </p>
+              {/* Transparent Box With Text */}
+              <div className="bg-white/50 md:bg-white/35 backdrop-blur-sm px-4 py-3 rounded-lg shadow-md inline-block">
 
-              <p className="text-base sm:text-lg md:text-xl font-semibold mb-6 text-yellow-300 drop-shadow-md">
-                Pure Taste. Global Reach.
-              </p>
+                <h1
+                  className="
+                    text-lg sm:text-xl md:text-2xl lg:text-3xl
+                    font-extrabold mb-2 text-[#4A2400]
+                  "
+                >
+                  Premium Spices from
+                  <span className="text-primary font-extrabold"> India </span>
+                  to the
+                  <span className="text-secondary font-extrabold"> World</span>
+                </h1>
 
-              <div className="flex flex-wrap gap-3">
+                <p className="text-sm sm:text-base md:text-lg font-semibold mb-1 text-[#3A2A1A]">
+                  Manufacturer, Exporter & Supplier of Spices
+                </p>
+
+                <p className="text-sm sm:text-lg md:text-xl font-bold text-[#B85C00]">
+                  Pure Taste. Global Reach.
+                </p>
+
+              </div>
+
+              {/* Buttons */}
+              <div className="flex flex-wrap gap-3 mt-4">
                 <Button asChild size="default" className="bg-primary hover:bg-primary/90">
                   <Link to="/products">Explore Products</Link>
                 </Button>
@@ -65,11 +81,11 @@ const Home = () => {
         </div>
       </section>
 
-      {/* FEATURES SECTION */}
+
+      {/* FEATURES */}
       <section className="py-16 bg-muted/30">
         <div className="container px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            
             <div className="text-center">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
                 <Award className="w-8 h-8 text-primary" />
@@ -77,7 +93,6 @@ const Home = () => {
               <h3 className="font-semibold mb-2 text-foreground">Premium Quality</h3>
               <p className="text-sm text-muted-foreground">Carefully sourced and processed spices</p>
             </div>
-
             <div className="text-center">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-secondary/10 flex items-center justify-center">
                 <Globe className="w-8 h-8 text-secondary" />
@@ -85,7 +100,6 @@ const Home = () => {
               <h3 className="font-semibold mb-2 text-foreground">Global Exports</h3>
               <p className="text-sm text-muted-foreground">Serving customers worldwide</p>
             </div>
-
             <div className="text-center">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center">
                 <Leaf className="w-8 h-8 text-accent" />
@@ -93,7 +107,6 @@ const Home = () => {
               <h3 className="font-semibold mb-2 text-foreground">Natural & Pure</h3>
               <p className="text-sm text-muted-foreground">100% natural without additives</p>
             </div>
-
             <div className="text-center">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
                 <TrendingUp className="w-8 h-8 text-primary" />
@@ -101,12 +114,12 @@ const Home = () => {
               <h3 className="font-semibold mb-2 text-foreground">Trusted Brand</h3>
               <p className="text-sm text-muted-foreground">Years of excellence in exports</p>
             </div>
-
           </div>
         </div>
       </section>
 
-      {/* ABOUT SECTION */}
+
+      {/* ABOUT PREVIEW */}
       <section className="py-16">
         <div className="container px-4">
           <div className="max-w-3xl mx-auto text-center">
@@ -122,6 +135,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+
 
       {/* FEATURED PRODUCTS */}
       <section className="py-16 bg-muted/30">
@@ -151,6 +165,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+
 
       {/* CTA SECTION */}
       <section className="py-20 bg-[#FFF4E3] border-t border-border/20">
