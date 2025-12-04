@@ -1,42 +1,52 @@
 {/* Hero Section */}
-<section className="relative h-auto overflow-hidden">
-  <img 
-    src={heroImage} 
-    alt="Solis International - Premium Spices"
-    className="w-full h-auto object-contain"
-  />
+<section className="relative w-full overflow-hidden">
+  {/* Background Image */}
+  <div className="w-full h-[260px] sm:h-[350px] md:h-[500px] lg:h-[650px] relative">
+    <img
+      src={heroImage}
+      alt="Solis International - Premium Spices"
+      className="
+        absolute inset-0 w-full h-full 
+        object-cover object-top     /* show top area on mobile */
+        md:object-contain md:object-center /* full image on desktop */
+      "
+    />
 
-  {/* Slight darker background for text visibility */}
-  <div className="absolute inset-0 bg-black/30 md:bg-black/20"></div>
+    {/* Strong overlay on mobile, lighter overlay on desktop */}
+    <div className="absolute inset-0 bg-black/55 md:bg-black/25"></div>
+  </div>
 
   {/* Text Content */}
-  <div className="absolute inset-0 flex items-center">
+  <div className="absolute inset-0 flex items-start md:items-center pt-3 sm:pt-6 md:pt-0">
     <div className="container px-4">
-      <div className="max-w-lg ml-2 sm:ml-4 md:ml-6 lg:ml-10">  {/* ← shifts text LEFT */}
-
+      <div className="max-w-xl">
+        
+        {/* TITLE */}
         <h1
           className="
-            text-xl sm:text-2xl md:text-3xl lg:text-4xl    /* smaller than before */
-            font-bold mb-3 text-white drop-shadow-lg
+            text-2xl sm:text-3xl md:text-4xl lg:text-5xl
+            font-extrabold mb-3 md:mb-4 
+            text-white drop-shadow-xl leading-tight
           "
         >
-          Premium Spices from <span className="text-primary">India</span> to the{" "}
-          <span className="text-secondary">World</span>
+          Premium Spices from <span className="text-orange-400">India</span> to the{" "}
+          <span className="text-green-400">World</span>
         </h1>
 
+        {/* SUBTEXT */}
         <p className="text-sm sm:text-base md:text-lg mb-3 text-white drop-shadow-md">
           Manufacturer, Exporter & Supplier of Spices and Oil Seeds
         </p>
 
-        <p className="text-base sm:text-lg md:text-xl font-semibold mb-5 text-yellow-300 drop-shadow-md">
+        <p className="text-base sm:text-lg md:text-xl font-semibold mb-6 text-yellow-300 drop-shadow-md">
           Pure Taste. Global Reach.
         </p>
 
+        {/* BUTTONS */}
         <div className="flex flex-wrap gap-3">
           <Button asChild size="default" className="bg-primary hover:bg-primary/90">
             <Link to="/products">Explore Products</Link>
           </Button>
-
           <Button
             asChild
             size="default"
@@ -46,7 +56,6 @@
             <Link to="/contact">Send Enquiry</Link>
           </Button>
         </div>
-
       </div>
     </div>
   </div>
