@@ -1,0 +1,27 @@
+---
+import { supabase } from "../lib/supabase";
+const { data: enquiries } = await supabase.from("enquiries").select("*").order("created_at", { ascending: false });
+---
+
+<h1>Admin Panel</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Phone</th>
+    <th>Email</th>
+    <th>Message</th>
+    <th>Created At</th>
+  </tr>
+  {
+    enquiries.map(row => (
+      <tr>
+        <td>{row.name}</td>
+        <td>{row.phone}</td>
+        <td>{row.email}</td>
+        <td>{row.message}</td>
+        <td>{row.created_at}</td>
+      </tr>
+    ))
+  }
+</table>
