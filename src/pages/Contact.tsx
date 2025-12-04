@@ -17,15 +17,22 @@ import {
 import { toast } from "sonner";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { products } from "@/data/products";
+import { createClient } from "@supabase/supabase-js";
+
+// ⬇️ Supabase client
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL!,
+  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY!
+);
 
 const formSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters").max(100),
-  company: z.string().min(2, "Company name is required").max(100),
-  email: z.string().email("Invalid email address").max(255),
-  phone: z.string().min(10, "Phone number must be at least 10 digits").max(20),
-  country: z.string().min(2, "Country is required").max(100),
-  products: z.array(z.string()).min(1, "Please select at least one product"),
-  message: z.string().min(10, "Message must be at least 10 characters").max(1000),
+  name: z.string().min(2).max(100),
+  company: z.string().min(2).max(100),
+  email: z.string().email().max(255),
+  phone: z.string().min(10).max(20),
+  country: z.string().min(2).max(100),
+  products: z.array(z.string()).min(1),
+  message: z.string().min(10).max(1000),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -46,22 +53,34 @@ const Contact = () => {
     },
   });
 
+  // ⬇️ SUBMIT FUNCTION UPDATED WITH SUPABASE INSERT
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
-    
-    // Simulate API call - will be replaced with Lovable Cloud integration
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      console.log("Form data:", data);
-      
+      const { error } = await supabase.from("enquiries").insert([
+        {
+          name: data.name,
+          company: data.company,
+          email: data.email,
+          phone: data.phone,
+          country: data.country,
+          products: data.products,
+          message: data.message,
+          created_at: new Date(),
+        },
+      ]);
+
+      if (error) throw error;
+
       toast.success("Enquiry Submitted Successfully!", {
         description: "We will contact you soon regarding your requirements.",
       });
-      
+
       form.reset();
-    } catch (error) {
+    } catch (error: any) {
       toast.error("Failed to submit enquiry", {
-        description: "Please try again or contact us directly.",
+        description: error.message || "Please try again.",
       });
     } finally {
       setIsSubmitting(false);
@@ -86,7 +105,8 @@ const Contact = () => {
 
       <div className="container px-4 py-16">
         <div className="grid md:grid-cols-5 gap-12 max-w-6xl mx-auto">
-          {/* Contact Info */}
+          
+          {/* Left Contact Info */}
           <div className="md:col-span-2 space-y-8">
             <div>
               <h2 className="text-2xl font-bold mb-6 text-foreground">Get In Touch</h2>
@@ -103,8 +123,7 @@ const Contact = () => {
                 <div>
                   <h3 className="font-semibold mb-1 text-foreground">Address</h3>
                   <p className="text-sm text-muted-foreground">
-                    Unjha, Gujarat<br />
-                    India - 384170
+                    Unjha, Gujarat<br />India - 384170
                   </p>
                 </div>
               </div>
@@ -115,9 +134,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold mb-1 text-foreground">Phone</h3>
-                  <p className="text-sm text-muted-foreground">
-                    +91 9898191644
-                  </p>
+                  <p className="text-sm text-muted-foreground">+91 9898191644</p>
                 </div>
               </div>
 
@@ -127,9 +144,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold mb-1 text-foreground">Email</h3>
-                  <p className="text-sm text-muted-foreground">
-                    solisinternational@gmail.com
-                  </p>
+                  <p className="text-sm text-muted-foreground">solisinternational@gmail.com</p>
                 </div>
               </div>
             </div>
@@ -143,13 +158,15 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Enquiry Form */}
+          {/* Form */}
           <div className="md:col-span-3">
             <div className="bg-card p-8 rounded-xl border border-border shadow-lg">
               <h2 className="text-2xl font-bold mb-6 text-foreground">Send Enquiry</h2>
-              
+
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  
+                  {/* Full Name */}
                   <FormField
                     control={form.control}
                     name="name"
@@ -164,6 +181,7 @@ const Contact = () => {
                     )}
                   />
 
+                  {/* Company */}
                   <FormField
                     control={form.control}
                     name="company"
@@ -179,6 +197,8 @@ const Contact = () => {
                   />
 
                   <div className="grid md:grid-cols-2 gap-6">
+
+                    {/* Email */}
                     <FormField
                       control={form.control}
                       name="email"
@@ -193,6 +213,7 @@ const Contact = () => {
                       )}
                     />
 
+                    {/* Phone */}
                     <FormField
                       control={form.control}
                       name="phone"
@@ -208,6 +229,7 @@ const Contact = () => {
                     />
                   </div>
 
+                  {/* Country */}
                   <FormField
                     control={form.control}
                     name="country"
@@ -222,6 +244,7 @@ const Contact = () => {
                     )}
                   />
 
+                  {/* Products */}
                   <FormField
                     control={form.control}
                     name="products"
@@ -244,7 +267,9 @@ const Contact = () => {
                                         if (checked) {
                                           field.onChange([...value, product.name]);
                                         } else {
-                                          field.onChange(value.filter((v) => v !== product.name));
+                                          field.onChange(
+                                            value.filter((v) => v !== product.name)
+                                          );
                                         }
                                       }}
                                     />
@@ -262,6 +287,7 @@ const Contact = () => {
                     )}
                   />
 
+                  {/* Message */}
                   <FormField
                     control={form.control}
                     name="message"
@@ -269,8 +295,8 @@ const Contact = () => {
                       <FormItem>
                         <FormLabel>Message *</FormLabel>
                         <FormControl>
-                          <Textarea 
-                            placeholder="Please provide details about your requirements (quantity, packaging preferences, delivery location, etc.)"
+                          <Textarea
+                            placeholder="Please provide details about your requirements"
                             className="min-h-32"
                             {...field}
                           />
@@ -280,18 +306,21 @@ const Contact = () => {
                     )}
                   />
 
-                  <Button 
-                    type="submit" 
-                    size="lg" 
+                  {/* Submit Button */}
+                  <Button
+                    type="submit"
+                    size="lg"
                     className="w-full bg-primary hover:bg-primary/90"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? "Submitting..." : "Submit Enquiry"}
                   </Button>
+
                 </form>
               </Form>
             </div>
           </div>
+
         </div>
       </div>
     </div>
