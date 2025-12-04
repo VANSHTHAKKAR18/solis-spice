@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "build:dev": "vite build --mode development",
+    "build": "npm run browserslist:update && vite build",
+    "build:dev": "npm run browserslist:update && vite build --mode development",
+    "browserslist:update": "npx update-browserslist-db@latest",
     "lint": "eslint .",
     "preview": "vite preview"
   },
